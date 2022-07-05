@@ -1,0 +1,89 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void sort(int low,int high,int a[]);
+int partition(int low,int high,int a[]);
+void swap(int a[],int i,int j);
+
+int main()
+{
+	int n,a[50],i;
+	int low,high;
+	
+	printf("Enter the number of array elements\n");
+	scanf("%d",&n);
+	printf("Enter the array elements\n");
+	for(i=0;i<n;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	
+	low=0;
+	high=n-1;
+	
+	sort(low,high,a);
+	
+	printf("Sorted elements are\n");
+	for(i=0;i<n;i++)
+	{
+		printf("%d\t",a[i]);
+	}
+	printf("\n");
+	return 0;
+}
+
+void sort(int low,int high,int a[])
+{
+	int j;
+	if(low<high)
+	{
+		j=partition(low,high,a);
+		
+		sort(low,j-1,a);
+		sort(j+1,high,a);
+	}
+}	
+
+int partition(int low,int high,int a[])
+{
+	int pivot,i,j;
+	
+	pivot=a[low];
+	i=low;
+	j=high;
+	
+	while(i<=j)
+	{
+		while(a[i]<=pivot)
+		{
+			i=i+1;
+		}
+		
+		
+		while(a[j]>pivot)
+		{
+			j=j-1;
+		}		
+		
+		
+		if(i<j)
+		{
+			swap(a,i,j);
+		}
+	}
+	
+	
+	a[low]=a[j];
+	a[j]=pivot;
+	return j;
+}
+
+void swap(int a[],int i,int j)
+{
+	int temp;
+	
+	temp=a[i];
+	a[i]=a[j];
+	a[j]=temp;
+	
+}			
